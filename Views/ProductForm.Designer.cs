@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProduct));
             btnSave = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
             btnRefresh = new Button();
-            lblTitle = new Label();
             groupBox1 = new GroupBox();
             dgvProduct = new DataGridView();
             txtTitle = new TextBox();
@@ -40,10 +41,13 @@
             txtQuantity = new NumericUpDown();
             lblQuantity = new Label();
             lblUnitPrice = new Label();
+            groupBox2 = new GroupBox();
+            requiredFieldValidator1 = new ValidationComponents.RequiredFieldValidator(components);
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProduct).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtUnitPrice).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtQuantity).BeginInit();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // btnSave
@@ -86,15 +90,6 @@
             btnRefresh.UseVisualStyleBackColor = true;
             btnRefresh.Click += btnRefresh_Click;
             // 
-            // lblTitle
-            // 
-            lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(24, 22);
-            lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(45, 18);
-            lblTitle.TabIndex = 4;
-            lblTitle.Text = "Title :";
-            // 
             // groupBox1
             // 
             groupBox1.Controls.Add(dgvProduct);
@@ -121,7 +116,7 @@
             // 
             // txtTitle
             // 
-            txtTitle.Location = new Point(24, 54);
+            txtTitle.Location = new Point(6, 34);
             txtTitle.Name = "txtTitle";
             txtTitle.Size = new Size(341, 26);
             txtTitle.TabIndex = 6;
@@ -162,18 +157,34 @@
             lblUnitPrice.TabIndex = 10;
             lblUnitPrice.Text = "Unit Price :";
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(txtTitle);
+            groupBox2.Location = new Point(12, 22);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(353, 86);
+            groupBox2.TabIndex = 11;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Title";
+            // 
+            // requiredFieldValidator1
+            // 
+            requiredFieldValidator1.CancelFocusChangeWhenInvalid = false;
+            requiredFieldValidator1.ControlToValidate = txtTitle;
+            requiredFieldValidator1.ErrorMessage = "Please Fill In The Title!";
+            requiredFieldValidator1.Icon = (Icon)resources.GetObject("requiredFieldValidator1.Icon");
+            // 
             // frmProduct
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 405);
+            Controls.Add(groupBox2);
             Controls.Add(lblUnitPrice);
             Controls.Add(lblQuantity);
             Controls.Add(txtQuantity);
             Controls.Add(txtUnitPrice);
-            Controls.Add(txtTitle);
             Controls.Add(groupBox1);
-            Controls.Add(lblTitle);
             Controls.Add(btnRefresh);
             Controls.Add(btnDelete);
             Controls.Add(btnEdit);
@@ -188,6 +199,8 @@
             ((System.ComponentModel.ISupportInitialize)dgvProduct).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtUnitPrice).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtQuantity).EndInit();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -198,7 +211,6 @@
         private Button btnEdit;
         private Button btnDelete;
         private Button btnRefresh;
-        private Label lblTitle;
         private GroupBox groupBox1;
         private TextBox txtTitle;
         private NumericUpDown txtUnitPrice;
@@ -206,5 +218,7 @@
         private Label lblQuantity;
         private Label lblUnitPrice;
         private DataGridView dgvProduct;
+        private GroupBox groupBox2;
+        private ValidationComponents.RequiredFieldValidator requiredFieldValidator1;
     }
 }

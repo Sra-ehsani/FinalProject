@@ -1,6 +1,6 @@
-﻿using Models.DomainModels;
-using Services;
-
+﻿using Services;
+using Models.DomainModels;
+using ValidationComponents;
 
 namespace Views
 {
@@ -16,30 +16,33 @@ namespace Views
         }
 
         private void frmProduct_Load(object sender, EventArgs e)
-        {  
+        {
             dgvProduct.DataSource = _productservice.FillGrid();
             dgvProduct.Columns[0].Visible = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var product = new Product()
+            if (BaseValidator.IsFormValid(this.components))
             {
-                Title = txtTitle.Text,
-                UnitPrice = txtUnitPrice.Value,
-                Quantity = txtQuantity.Value,
-            };
-            if (!isEditing)
-            {
-                _productservice.Save(product);
-                MessageBox.Show("Done", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                _productservice.Edit(idToEdit, product);
-                MessageBox.Show("Done", "Edited", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                idToEdit = 0;
-                isEditing = false;
+                var product = new Product()
+                {
+                    Title = txtTitle.Text,
+                    UnitPrice = txtUnitPrice.Value,
+                    Quantity = (int)txtQuantity.Value,
+                };
+                if (!isEditing)
+                {
+                    _productservice.Save(product);
+                    MessageBox.Show("Done", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    _productservice.Edit(idToEdit, product);
+                    MessageBox.Show("Done", "Edited", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    idToEdit = 0;
+                    isEditing = false;
+                }
             }
             dgvProduct.DataSource = _productservice.FillGrid();
             txtTitle.Text = string.Empty;
@@ -74,7 +77,10 @@ namespace Views
         }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-                dgvProduct.DataSource = _productservice.FillGrid();  
+            dgvProduct.DataSource = _productservice.FillGrid();
+            txtTitle.Text = string.Empty;
+            txtUnitPrice.Text = string.Empty;
+            txtQuantity.Text = string.Empty;
         }
     }
 }

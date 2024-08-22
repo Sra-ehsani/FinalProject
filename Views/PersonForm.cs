@@ -1,7 +1,6 @@
-﻿
+﻿using Services;
 using Models.DomainModels;
-using Services;
-
+using ValidationComponents;
 
 namespace Views
 {
@@ -24,22 +23,25 @@ namespace Views
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var person = new Person()
+            if (BaseValidator.IsFormValid(this.components))
             {
-                FirstName = txtFirstName.Text,
-                LastName = txtLastName.Text,
-            };
-            if (!isEditing)
-            {
-                _personService.Save(person);
-                MessageBox.Show("Done", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);         
-            }
-            else
-            {
-                _personService.Edit(idToEdit, person);
-                MessageBox.Show("Done", "Edited", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                idToEdit = 0;
-                isEditing = false;
+                var person = new Person()
+                {
+                    FirstName = txtFirstName.Text,
+                    LastName = txtLastName.Text,
+                };
+                if (!isEditing)
+                {
+                    _personService.Save(person);
+                    MessageBox.Show("Done", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    _personService.Edit(idToEdit, person);
+                    MessageBox.Show("Done", "Edited", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    idToEdit = 0;
+                    isEditing = false;
+                }
             }
             dgvPerson.DataSource = _personService.FillGrid();
             txtFirstName.Text = string.Empty;
@@ -76,6 +78,8 @@ namespace Views
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             dgvPerson.DataSource = _personService.FillGrid();
+            txtFirstName.Text = string.Empty;
+            txtLastName.Text = string.Empty;
         }
     }
 }

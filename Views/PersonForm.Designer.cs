@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPerson));
             btnSave = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
@@ -38,6 +40,8 @@
             dgvPerson = new DataGridView();
             txtFirstName = new TextBox();
             txtLastName = new TextBox();
+            requiredFieldValidator1 = new ValidationComponents.RequiredFieldValidator(components);
+            requiredFieldValidator2 = new ValidationComponents.RequiredFieldValidator(components);
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPerson).BeginInit();
             SuspendLayout();
@@ -138,6 +142,20 @@
             txtLastName.Size = new Size(249, 26);
             txtLastName.TabIndex = 8;
             // 
+            // requiredFieldValidator1
+            // 
+            requiredFieldValidator1.CancelFocusChangeWhenInvalid = false;
+            requiredFieldValidator1.ControlToValidate = txtFirstName;
+            requiredFieldValidator1.ErrorMessage = "Please Fill In The First Name!";
+            requiredFieldValidator1.Icon = (Icon)resources.GetObject("requiredFieldValidator1.Icon");
+            // 
+            // requiredFieldValidator2
+            // 
+            requiredFieldValidator2.CancelFocusChangeWhenInvalid = false;
+            requiredFieldValidator2.ControlToValidate = txtLastName;
+            requiredFieldValidator2.ErrorMessage = "Please Fill In The Last Name!";
+            requiredFieldValidator2.Icon = (Icon)resources.GetObject("requiredFieldValidator2.Icon");
+            // 
             // frmPerson
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
@@ -176,5 +194,7 @@
         private TextBox txtFirstName;
         private TextBox txtLastName;
         private DataGridView dgvPerson;
+        private ValidationComponents.RequiredFieldValidator requiredFieldValidator1;
+        private ValidationComponents.RequiredFieldValidator requiredFieldValidator2;
     }
 }
